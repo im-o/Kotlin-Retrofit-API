@@ -13,17 +13,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     var BASE_URL: String = BuildConfig.BASE_URL
-    val getClient: ServiceThesportDB
-        get() {
-            val gson = GsonBuilder().setLenient().create()
-            val inteceptor = HttpLoggingInterceptor()
-            inteceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            val client = OkHttpClient.Builder().addInterceptor(inteceptor).build()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-            return retrofit.create(ServiceThesportDB::class.java)
-        }
+    fun retrofit(): ServiceThesportDB {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build().create(ServiceThesportDB::class.java)
+    }
 }

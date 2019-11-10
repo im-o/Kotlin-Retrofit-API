@@ -9,9 +9,6 @@ import retrofit2.http.Query
  */
 
 interface ServiceThesportDB {
-    @GET("api/v1/json/1/lookupleague.php?")
-    fun getDetailLeaguaById(@Query("id") id: Int?): Call<ResponseThesportDB>
-
     @GET("api/v1/json/1/all_leagues.php")
     fun getAllLeagues(): Call<ResponseThesportDB>
 }

@@ -21,36 +21,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainUI(dataList).setContentView(this)
-        getDataById()
         getDataAllLeagues()
     }
 
-    private fun getDataById() {
-        val call: Call<ResponseThesportDB> = ApiClient.getClient.getDetailLeaguaById(sampleId)
-        call.enqueue(object : Callback<ResponseThesportDB> {
-            override fun onFailure(call: Call<ResponseThesportDB>, t: Throwable) {
-                e("INIII", "ERRRPR ${t}")
-            }
-
-            override fun onResponse(
-                call: Call<ResponseThesportDB>,
-                response: Response<ResponseThesportDB>
-            ) {
-                if (response.code() == 200) {
-                    val responsedb: ResponseThesportDB = response.body()!!
-//                    getHasil(responsedb.leagues)
-//                    val responseTSDB: ResponseThesportDB = response.body()!!
-//                    val arr = responseTSDB.leagues.toArray()
-//                    e("INIII", "HASIIIL : ${responseTSDB.leagues.toArray()}")
-//                    e("INIII", "INI SIZE : ${arr}")
-                }
-            }
-
-        })
-    }
-
     private fun getDataAllLeagues(){
-        val call: Call<ResponseThesportDB> = ApiClient.getClient.getAllLeagues()
+        val call: Call<ResponseThesportDB> = ApiClient.retrofit().getAllLeagues()
         call.enqueue(object : Callback<ResponseThesportDB>{
             override fun onFailure(call: Call<ResponseThesportDB>, t: Throwable) {
                 toast("ERRRPR ${t}")
@@ -75,9 +50,5 @@ class MainActivity : AppCompatActivity() {
         dataList.addAll(response)
         progress.invisible()
         rv_main.adapter?.notifyDataSetChanged()
-    }
-
-    companion object {
-        val sampleId = 4329
     }
 }
