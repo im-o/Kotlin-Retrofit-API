@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Retrofit show data</string>
+    <string name="title_app">Simple Retrofit Recyclerview</string>
+</resources>
